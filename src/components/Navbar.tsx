@@ -1,37 +1,51 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledNavbar = styled.ul`
+const StyledNavItem = styled.li`
   display: flex;
   justify-content: flex-end;
-  height: 100%;
-  list-style: none;
-  margin-top: 20px;
-  border-bottom: 1px solid #a1a1a1;
-  padding-bottom: 20px;
+  border-bottom: 1px solid #dddddd;
+  align-items: center;
+  height: 64px;
+  width: 100%;
 `;
 
-const StyledNavItem = styled.li`
-  margin: 0 23px;
-`;
-
-const NavbarLink = styled(Link)`
-  text-decoration: none;
+const NavbarLink = styled(Link)<{ styleBtn: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
-  background: black;
-  padding: 10px 25px;
+  width: 85px;
+  height: 34px;
+
+  background: ${(props) => (props.styleBtn === "black" ? "black" : "none")};
+  color: ${(props) => (props.styleBtn === "black" ? "white" : "black")};
+
+  padding: 7px 25px;
   border-radius: 100px;
+  font-size: 12px;
+  margin-right: 12px;
+  line-height: 18px;
+  text-align: center;
 `;
 
 function Navbar() {
   return (
     <>
-      <StyledNavbar>
-        <StyledNavItem>
-          <NavbarLink to="/Login">Login</NavbarLink>
-        </StyledNavItem>
-      </StyledNavbar>
+      <StyledNavItem>
+        <NavbarLink to="#" styleBtn="none">
+          문의
+        </NavbarLink>
+        <NavbarLink to="#" styleBtn="none">
+          문의
+        </NavbarLink>{" "}
+        <NavbarLink to="#" styleBtn="none">
+          문의
+        </NavbarLink>
+        <NavbarLink to="/Login" styleBtn="black">
+          로그인
+        </NavbarLink>
+      </StyledNavItem>
     </>
   );
 }
