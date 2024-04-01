@@ -3,16 +3,18 @@ import styled from "styled-components";
 
 const StyledNavItem = styled.li`
   display: flex;
-  justify-content: flex-end;
-  border-bottom: 1px solid #dddddd;
+
+  margin: 0 auto;
+  max-width: 1500px;
+
   align-items: center;
   height: 64px;
   width: 100%;
 `;
 const StyledUserName = styled.div`
-  margin-left: 20px;
-  font-size: 12px;
-  width: 100%;
+  font-size: 18px;
+  width: 100px;
+  margin-right: 25px;
 `;
 
 const NavbarLink = styled(Link)<{ styleBtn: string }>`
@@ -20,41 +22,53 @@ const NavbarLink = styled(Link)<{ styleBtn: string }>`
   justify-content: center;
   align-items: center;
   color: white;
-
   height: 34px;
-
-  background: ${(props) => (props.styleBtn === "black" ? "black" : "none")};
-  color: ${(props) => (props.styleBtn === "black" ? "white" : "black")};
-
-  padding: 7px 25px;
+  background: none;
+  color: black;
   border-radius: 100px;
-  font-size: 12px;
+  padding: 12px 24px;
+  font-size: 20px;
   margin-right: 12px;
   line-height: 18px;
   text-align: center;
 `;
 
+const LogoutBtn = styled(Link)`
+  background-color: #333;
+  width: 80px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-left: auto;
+`;
 function ServiceNavbar() {
   const { id } = useParams();
   return (
     <>
-      <StyledNavItem>
-        <StyledUserName>{id}님 환영합니다.</StyledUserName>
+      <div style={{ borderBottom: "1px solid #dddddd" }}>
         <StyledNavItem>
-          <NavbarLink to="" styleBtn="none">
-            내 책
-          </NavbarLink>
-          <NavbarLink to="calendar" styleBtn="none">
-            캘린더
-          </NavbarLink>
-          <NavbarLink to="mypage" styleBtn="none">
-            마이 페이지
-          </NavbarLink>
-          <NavbarLink to="/Login" id="logout" styleBtn="black">
-            로그아웃
-          </NavbarLink>
+          <StyledUserName>{id}의 서재</StyledUserName>
+          <StyledNavItem>
+            <NavbarLink to="" styleBtn="none">
+              내 책
+            </NavbarLink>
+            <NavbarLink to="calendar" styleBtn="none">
+              캘린더
+            </NavbarLink>
+            <NavbarLink to="mypage" styleBtn="none">
+              마이 페이지
+            </NavbarLink>
+            <LogoutBtn to="/Login" id="logout">
+              로그아웃
+            </LogoutBtn>
+          </StyledNavItem>
         </StyledNavItem>
-      </StyledNavItem>
+      </div>
+
       <Outlet />
     </>
   );

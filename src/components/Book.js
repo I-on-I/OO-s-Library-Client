@@ -33,7 +33,7 @@ const Page = React.forwardRef((props, ref) => {
   );
 });
 
-function MyAlbum(props) {
+function Book(props) {
   return (
     <body>
       <div className="bookSection">
@@ -50,8 +50,8 @@ function MyAlbum(props) {
           maxShadowOpacity={0.5}
           className="album-web"
         >
-          <PageCover backgroundImg="https://image.aladin.co.kr/product/28258/73/cover500/k212835380_1.jpg"></PageCover>
-          <PageCover>목차가 들어갈 곳</PageCover>
+          <PageCover backgroundImg={props.bookInfo}></PageCover>
+          <PageCover>{props.author}123</PageCover>
 
           <Page number="1">
             <hr></hr>
@@ -100,4 +100,4 @@ function MyAlbum(props) {
   );
 }
 
-export default MyAlbum;
+export default Book;

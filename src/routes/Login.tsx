@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import login from "../assets/login.png";
-import { Link } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
 
+import { Link } from "react-router-dom";
+import { ChangeEvent, useEffect, useState } from "react";
+
+import axios from "axios";
+import { error } from "console";
 const LoginSection = styled.div`
   display: flex;
   min-height: 100vh;
@@ -80,6 +82,10 @@ const SocialLogin = styled.img<{ url: string }>`
   background: url(${(props) => props.url});
 `;
 function Login() {
+  // const { data, isLoading, isError } = useQuery("userData", () =>
+  //   fetch("/test/3").then((res) => res.json())
+  // );
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +96,17 @@ function Login() {
     setPassword(e.target.value);
   };
   const handleLogin = () => {
-    // Add your login logic here
+    // axios
+    //   .post("/test/5", {
+    //     id: username,
+    //     password: password,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.data) alert("존재합니다");
+    //     else alert("비밀번호 또는 아이디가 틀렸습니다.");
+    //   });
+
     console.log("Username:", username);
     console.log("Password:", password);
   };
