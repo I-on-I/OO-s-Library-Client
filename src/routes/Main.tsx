@@ -30,6 +30,9 @@ const AppContent = styled.span`
 
 const BookContent = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   margin-top: 77px;
 `;
 
@@ -99,7 +102,7 @@ function Main() {
     <div>
       <Navbar />
       <TitleList>
-        <AppTitle>앱 이름</AppTitle>
+        <AppTitle>00의 서재</AppTitle>
         <AppContent>앱의 내용과 구체적인 서비스 스토리</AppContent>
         <BookContent>
           {datas.map((data, index) => (

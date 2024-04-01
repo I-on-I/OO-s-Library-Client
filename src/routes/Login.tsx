@@ -2,35 +2,26 @@ import styled from "styled-components";
 import login from "../assets/login.png";
 import { Link } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
-const BodyWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const LoginSection = styled.div`
-  margin-top: 50px;
-  width: 1280px;
-  height: 832px;
   display: flex;
-  box-shadow: 8px 5px 10px 3px rgba(0, 0, 0, 0.25);
+  min-height: 100vh;
 `;
 const LoginImg = styled.div<{ Img: string }>`
-  width: 640px;
-  height: 832px;
-  background: url(${(props) => props.Img});
-
+  width: 100%;
+  height: 1000px;
+  background: url(https://d3udu241ivsax2.cloudfront.net/v3/images/login/promotion_intro_bg.ac5237a5bed49b864cccee5224a464e4.jpg)
+    50% center / cover no-repeat;
   background-repeat: no-repeat;
 `;
 
 const LoginContent = styled.div`
-  width: 640px;
-  height: 832px;
+  width: 612px;
+
   padding: 100px 84px;
 `;
 
 const AppName = styled.div`
-  width: 95.538px;
   height: 43.409px;
   flex-shrink: 0;
   color: #292929;
@@ -67,8 +58,8 @@ const LoginButton = styled.button<{ disabled: boolean }>`
   border-radius: 4px;
   border: none;
   padding: 0 24px;
-  background-color: ${({ disabled }) => (disabled ? "#ccc" : "#ffeb60")};
-  color: white;
+  background-color: ${({ disabled }) => (disabled ? "#fff7c4a3" : "#ffeb60")};
+  color: ${({ disabled }) => (disabled ? "#black" : "#white")};
   cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   font-size: 16px;
 `;
@@ -120,112 +111,115 @@ function Login() {
   ];
   return (
     <>
-      <BodyWrapper>
-        <LoginSection>
-          <LoginImg Img={login} />
-          <LoginContent>
-            <AppName>앱 이름</AppName>
-            <AppSummary>서로 공유하고.. 재밌는 웹 사이트</AppSummary>
-            <div style={{ marginTop: "60px" }}>
-              <InputInfo
-                marginInput="19px"
-                placeholder="아이디를 입력해주세요."
-                value={username}
-                onChange={handleUsernameChange}
-              />
-              <InputInfo
-                id="password"
-                placeholder="비밀번호를 입력해주세요."
-                value={password}
-                onChange={handlePasswordChange}
-              />
+      <LoginSection>
+        <LoginImg
+          Img={
+            "https://d3udu241ivsax2.cloudfront.net/v3/images/login/promotion_intro_bg.ac5237a5bed49b864cccee5224a464e4.jpg"
+          }
+        />
+        <LoginContent>
+          <AppName>00의 서재</AppName>
+          <AppSummary>서로 공유하고.. 재밌는 웹 사이트</AppSummary>
 
-              <Link to={`/${username}/library`}>
-                <LoginButton
-                  onClick={handleLogin}
-                  disabled={!username || !password}
-                >
-                  LOGIN
-                </LoginButton>
-              </Link>
-            </div>
-            <div
+          <div style={{ marginTop: "60px" }}>
+            <InputInfo
+              marginInput="19px"
+              placeholder="이메일 입력"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+            <InputInfo
+              id="password"
+              placeholder="비밀번호 입력"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+
+            <Link to={`/${username}/library`}>
+              <LoginButton
+                onClick={handleLogin}
+                disabled={!username || !password}
+              >
+                로그인
+              </LoginButton>
+            </Link>
+          </div>
+          <div
+            style={{
+              marginTop: "67px",
+              textAlign: "center",
+              color: "rgba(12, 12, 12, 0.70)",
+            }}
+          >
+            <Link
               style={{
-                marginTop: "67px",
-                textAlign: "center",
+                textDecoration: "none",
                 color: "rgba(12, 12, 12, 0.70)",
               }}
+              to="/signup"
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "rgba(12, 12, 12, 0.70)",
-                }}
-                to="/signup"
-              >
-                회원가입
-              </Link>{" "}
-              <span> | </span>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "rgba(12, 12, 12, 0.70)",
-                }}
-                to="/signup"
-              >
-                비밀번호 찾기
-              </Link>{" "}
-              <span> | </span>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "rgba(12, 12, 12, 0.70)",
-                }}
-                to="/signup"
-              >
-                관리자 로그인
-              </Link>
-            </div>
-            <div style={{ textAlign: "center", marginTop: " 25px" }}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="182"
-                height="2"
-                viewBox="0 0 182 2"
-                fill="none"
-              >
-                <path d="M181.5 1H0" stroke="#D9D9D9" />
-              </svg>{" "}
-              <span
-                style={{
-                  color: "6E6E6E",
-                  fontSize: "10px",
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  margin: "0 10px",
-                }}
-              >
-                OR
-              </span>{" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="182"
-                height="2"
-                viewBox="0 0 182 2"
-                fill="none"
-              >
-                <path d="M181.5 1H0" stroke="#D9D9D9" />
-              </svg>{" "}
-            </div>
+              회원가입
+            </Link>{" "}
+            <span> | </span>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "rgba(12, 12, 12, 0.70)",
+              }}
+              to="/signup"
+            >
+              비밀번호 찾기
+            </Link>{" "}
+            <span> | </span>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "rgba(12, 12, 12, 0.70)",
+              }}
+              to="/signup"
+            >
+              관리자 로그인
+            </Link>
+          </div>
+          <div style={{ textAlign: "center", marginTop: " 25px" }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="182"
+              height="2"
+              viewBox="0 0 182 2"
+              fill="none"
+            >
+              <path d="M181.5 1H0" stroke="#D9D9D9" />
+            </svg>{" "}
+            <span
+              style={{
+                color: "6E6E6E",
+                fontSize: "10px",
+                fontStyle: "normal",
+                fontWeight: "500",
+                margin: "0 10px",
+              }}
+            >
+              OR
+            </span>{" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="182"
+              height="2"
+              viewBox="0 0 182 2"
+              fill="none"
+            >
+              <path d="M181.5 1H0" stroke="#D9D9D9" />
+            </svg>{" "}
+          </div>
 
-            <SocialLoginSection>
-              {socials.map((social, index) => (
-                <SocialLogin url={social.url} />
-              ))}
-            </SocialLoginSection>
-          </LoginContent>
-        </LoginSection>
-      </BodyWrapper>
+          <SocialLoginSection>
+            {socials.map((social, index) => (
+              <SocialLogin url={social.url} />
+            ))}
+          </SocialLoginSection>
+        </LoginContent>
+      </LoginSection>
     </>
   );
 }

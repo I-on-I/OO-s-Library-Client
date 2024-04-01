@@ -4,24 +4,15 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-const BodyWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const LoginSection = styled.div`
-  margin-top: 50px;
-  width: 1280px;
-  height: 832px;
   display: flex;
-  box-shadow: 8px 5px 10px 3px rgba(0, 0, 0, 0.25);
+  min-height: 100vh;
 `;
 const LoginImg = styled.div<{ Img: string }>`
-  width: 640px;
-  height: 832px;
-  background: url(${(props) => props.Img});
-
+  width: 100%;
+  height: 1000px;
+  background: url(https://d3udu241ivsax2.cloudfront.net/v3/images/login/promotion_intro_bg.ac5237a5bed49b864cccee5224a464e4.jpg)
+    50% center / cover no-repeat;
   background-repeat: no-repeat;
 `;
 
@@ -97,67 +88,65 @@ function Signup() {
   console.log(errors);
   return (
     <>
-      <BodyWrapper>
-        <LoginSection>
-          <LoginImg Img={login} />
-          <LoginContent>
-            <AppName>회원가입</AppName>
+      <LoginSection>
+        <LoginImg Img={login} />
+        <LoginContent>
+          <AppName>회원가입</AppName>
 
-            <div style={{ marginTop: "14px" }}>
-              <form onSubmit={handleSubmit(onValid)}>
-                <InputInfo
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^\S+@\S+\.\S+$/,
-                      message: "Only emails allowed",
-                    },
-                  })}
-                  placeholder="이메일을 입력해주세요"
-                />{" "}
-                <span>{errors?.id?.message}</span>
-                <InputInfo
-                  {...register("id", {
-                    required: "Id is required",
-                  })}
-                  placeholder="아이디를 입력해주세요"
-                />
-                <span>{errors?.email?.message}</span>
-                <InputInfo
-                  {...register("name", {
-                    required: "write here",
-                    minLength: 2,
-                  })}
-                  placeholder="이름을 입력해주세요"
-                />
-                <span>{errors?.name?.message}</span>
-                <InputInfo
-                  {...register("password", {
-                    required: "write here",
-                    minLength: 5,
-                  })}
-                  placeholder="Password"
-                />
-                <span>{errors?.password?.message}</span>
-                <InputInfo
-                  {...register("password1", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 5,
-                      message: "Your password is too short.",
-                    },
-                  })}
-                  placeholder="Password1"
-                />
-                <span>{errors?.password1?.message}</span>
-                <SingupButton disabled={!isValid} type="submit">
-                  회원가입
-                </SingupButton>
-              </form>
-            </div>
-          </LoginContent>
-        </LoginSection>
-      </BodyWrapper>
+          <div style={{ marginTop: "14px" }}>
+            <form onSubmit={handleSubmit(onValid)}>
+              <InputInfo
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^\S+@\S+\.\S+$/,
+                    message: "Only emails allowed",
+                  },
+                })}
+                placeholder="이메일을 입력"
+              />{" "}
+              <span>{errors?.id?.message}</span>
+              <InputInfo
+                {...register("id", {
+                  required: "Id is required",
+                })}
+                placeholder="아이디를 입력"
+              />
+              <span>{errors?.email?.message}</span>
+              <InputInfo
+                {...register("name", {
+                  required: "write here",
+                  minLength: 2,
+                })}
+                placeholder="이름을 입력"
+              />
+              <span>{errors?.name?.message}</span>
+              <InputInfo
+                {...register("password", {
+                  required: "write here",
+                  minLength: 5,
+                })}
+                placeholder="비밀번호를 입력"
+              />
+              <span>{errors?.password?.message}</span>
+              <InputInfo
+                {...register("password1", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 5,
+                    message: "Your password is too short.",
+                  },
+                })}
+                placeholder="비밀번호를 다시 입력"
+              />
+              <span>{errors?.password1?.message}</span>
+              <SingupButton disabled={!isValid} type="submit">
+                회원가입
+              </SingupButton>
+            </form>
+          </div>
+        </LoginContent>
+      </LoginSection>
     </>
   );
 }
