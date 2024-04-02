@@ -1,87 +1,45 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
-const MyPage: React.FC = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [newNickname, setNewNickname] = useState("");
-  const [showProfilePictureInput, setShowProfilePictureInput] = useState(false);
-  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+const MyPageSection = styled.div`
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  height: 100%;
+  display: flex;
+  min-width: 320px;
+`;
 
-  // 비밀번호 변경 함수
-  const handleChangePassword = () => {
-    // 비밀번호 변경 로직 작성
-    console.log("비밀번호 변경:", newPassword);
-  };
+const PictureBox = styled.div`
+  margin-bottom: 16px;
+`;
 
-  // 닉네임 변경 함수
-  const handleChangeNickname = () => {
-    // 닉네임 변경 로직 작성
-    console.log("닉네임 변경:", newNickname);
-  };
+const Inner = styled.div`
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+`;
 
-  // 회원 정보 탈퇴 함수
-  const handleDeleteAccount = () => {
-    // 회원 정보 탈퇴 로직 작성
-    console.log("회원 정보 탈퇴");
-  };
+const ImageBox = styled.div`
+  background-image: url("https://d2j6uvfek9vas1.cloudfront.net/profile/6152765c5ed21.png");
+`;
 
-  // 프로필 사진 추가 함수
-  const handleProfilePictureChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      setProfilePicture(file);
-    }
-  };
-
+function MyPage() {
+  const { id } = useParams();
   return (
-    <div>
-      <h1>My Page</h1>
-      <div>
-        <span>id : </span>
-        <span>abcd</span>
-      </div>
-
-      <div>
-        <h3>비밀번호 변경</h3>
-        <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-        <button onClick={handleChangePassword}>변경</button>
-      </div>
-      <div>
-        <h3>프로필 사진 추가</h3>
-        <button onClick={() => setShowProfilePictureInput(true)}>
-          프로필 사진 추가
-        </button>
-        {showProfilePictureInput && (
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleProfilePictureChange}
-          />
-        )}
-        {profilePicture && (
-          <img src={URL.createObjectURL(profilePicture)} alt="프로필 사진" />
-        )}
-      </div>
-      <div>
-        <h3>닉네임 변경</h3>
-        <input
-          type="text"
-          value={newNickname}
-          onChange={(e) => setNewNickname(e.target.value)}
-        />
-        <button onClick={handleChangeNickname}>변경</button>
-      </div>
-      <div>
-        <h3>회원 정보 탈퇴</h3>
-        <button onClick={handleDeleteAccount}>회원 정보 탈퇴</button>
-      </div>
-    </div>
+    <MyPageSection>
+      <PictureBox>
+        <PictureBox>
+          <Inner>
+            <ImageBox></ImageBox>
+          </Inner>
+        </PictureBox>
+      </PictureBox>
+    </MyPageSection>
   );
-};
-
+}
 export default MyPage;

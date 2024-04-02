@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 
 import axios from "axios";
-import { error } from "console";
+
+// "proxy": "http://192.168.0.4:8080", 효진씨 북 데이터
 const LoginSection = styled.div`
   display: flex;
   min-height: 100vh;
@@ -96,19 +97,23 @@ function Login() {
     setPassword(e.target.value);
   };
   const handleLogin = () => {
-    // axios
-    //   .post("/test/5", {
-    //     id: username,
-    //     password: password,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.data) alert("존재합니다");
-    //     else alert("비밀번호 또는 아이디가 틀렸습니다.");
-    //   });
+    let formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
 
-    console.log("Username:", username);
-    console.log("Password:", password);
+    axios
+      .post("/login", formData)
+      .then((response) => {
+        console.log(response);
+        console.log("서버 fetch 성공");
+
+        if (response.data) {
+          alert("로그인 성공!!");
+        }
+      })
+      .catch(function (error) {
+        alert("fail!!");
+      });
   };
 
   const socials = [
