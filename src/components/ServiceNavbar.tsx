@@ -1,6 +1,7 @@
 import { Link, Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
-
+import axios from "axios";
+import { response } from "express";
 const StyledNavItem = styled.li`
   display: flex;
 
@@ -45,6 +46,12 @@ const LogoutBtn = styled(Link)`
   font-size: 12px;
   margin-left: auto;
 `;
+
+const logout = () => {
+  axios.get("/logout").then((response) => {
+    // console.log(response.data);
+  });
+};
 function ServiceNavbar() {
   const { id } = useParams();
   return (
@@ -62,7 +69,7 @@ function ServiceNavbar() {
             <NavbarLink to="mypage" styleBtn="none">
               마이 페이지
             </NavbarLink>
-            <LogoutBtn to="/Login" id="logout">
+            <LogoutBtn to="/Login" id="logout" onClick={logout}>
               로그아웃
             </LogoutBtn>
           </StyledNavItem>

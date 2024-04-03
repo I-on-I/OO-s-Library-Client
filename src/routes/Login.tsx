@@ -5,6 +5,9 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 // "proxy": "http://192.168.0.4:8080", 효진씨 북 데이터
 const LoginSection = styled.div`
   display: flex;
@@ -82,38 +85,71 @@ const SocialLogin = styled.img<{ url: string }>`
   border-radius: 25px;
   background: url(${(props) => props.url});
 `;
-function Login() {
-  // const { data, isLoading, isError } = useQuery("userData", () =>
-  //   fetch("/test/3").then((res) => res.json())
-  // );
 
+interface IForm {
+  email: string;
+  password: string;
+}
+
+function Login() {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    setError,
+  } = useForm<IForm>({});
+
+  const socialLogin = () => {
+    axios
+      .get("/oauth2/authorization/naver")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(function (error) {
+        alert("fail!");
+      });
+  };
+  const onValid = (data: IForm) => {
+    let formData = new FormData();
+    console.log(data.email);
+    console.log(data.password);
+
+    formData.append("username", data.email);
+    formData.append("password", data.password);
+    axios
+      .post("/login", formData)
+      .then((response) => {
+        console.log(response.data);
+        console.log("서버 fetch 성공");
+
+        if (response.data.pk) {
+          alert("로그인에 성공했습니다!");
+          navigate(`/${data.email}/library`);
+        } else {
+          alert("비밀번호 또는 아이디가 틀렸습니다.");
+          setError(
+            "password",
+            {
+              message: "password are not the same!",
+            },
+            { shouldFocus: true }
+          );
+        }
+      })
+      .catch(function (error) {
+        alert("fail!!");
+      });
+  };
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  };
-  const handleLogin = () => {
-    let formData = new FormData();
-    formData.append("username", username);
-    formData.append("password", password);
-
-    axios
-      .post("/login", formData)
-      .then((response) => {
-        console.log(response);
-        console.log("서버 fetch 성공");
-
-        if (response.data) {
-          alert("로그인 성공!!");
-        }
-      })
-      .catch(function (error) {
-        alert("fail!!");
-      });
   };
 
   const socials = [
@@ -142,29 +178,33 @@ function Login() {
           <AppName>00의 서재</AppName>
           <AppSummary>서로 공유하고.. 재밌는 웹 사이트</AppSummary>
 
-          <div style={{ marginTop: "60px" }}>
-            <InputInfo
-              marginInput="19px"
-              placeholder="이메일 입력"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-            <InputInfo
-              id="password"
-              placeholder="비밀번호 입력"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-
-            <Link to={`/${username}/library`}>
-              <LoginButton
-                onClick={handleLogin}
-                disabled={!username || !password}
-              >
+          <form onSubmit={handleSubmit(onValid)}>
+            {" "}
+            <div style={{ marginTop: "60px" }}>
+              <InputInfo
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^\S+@\S+\.\S+$/,
+                    message: "Only emails allowed",
+                  },
+                })}
+                placeholder="이메일을 입력"
+              />{" "}
+              <span>{errors?.email?.message}</span>
+              <InputInfo
+                {...register("password", {
+                  required: "write here",
+                  minLength: 4,
+                })}
+                placeholder="비밀번호를 입력"
+              />
+              <LoginButton disabled={!isValid} type="submit">
                 로그인
               </LoginButton>
-            </Link>
-          </div>
+            </div>
+          </form>
+
           <div
             style={{
               marginTop: "67px",
@@ -236,7 +276,7 @@ function Login() {
 
           <SocialLoginSection>
             {socials.map((social, index) => (
-              <SocialLogin url={social.url} />
+              <SocialLogin url={social.url} onClick={socialLogin} />
             ))}
           </SocialLoginSection>
         </LoginContent>
