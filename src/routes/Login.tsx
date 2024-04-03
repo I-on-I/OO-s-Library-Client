@@ -100,15 +100,34 @@ function Login() {
     setError,
   } = useForm<IForm>({});
 
+  // const socialLogin = async () => {
+  //   try {
+  //     await axios
+  //       .post("/oauth2/authorization/naver", {
+  //         withCredentials: true,
+  //       })
+  //       .then((res) => {
+  //         console.log(res.data);
+  //       });
+  //   } catch (e) {
+  //     console.log(e);
+  //     alert("error 데이터를 불러올 수 없다!");
+  //   }
+  // };
+  const NAVER_CLIENT_ID = "Smcbfw_WXTXz1O5VFd2N";
+
+  const REDIRECT_URL = "http://192.168.0.80:8080/login/oauth2/code/naver";
+
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let STATE = "";
+  for (let i = 0; i < chars.length; i++) {
+    STATE += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
   const socialLogin = () => {
-    axios
-      .get("/oauth2/authorization/naver")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(function (error) {
-        alert("fail!");
-      });
+    const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URL}`;
+
+    window.location.href = NAVER_AUTH_URL;
   };
   const onValid = (data: IForm) => {
     let formData = new FormData();
@@ -140,16 +159,6 @@ function Login() {
       .catch(function (error) {
         alert("fail!!");
       });
-  };
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
   };
 
   const socials = [

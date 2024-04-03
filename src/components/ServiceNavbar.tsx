@@ -1,7 +1,7 @@
 import { Link, Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { response } from "express";
+
 const StyledNavItem = styled.li`
   display: flex;
 
@@ -48,9 +48,12 @@ const LogoutBtn = styled(Link)`
 `;
 
 const logout = () => {
-  axios.get("/logout").then((response) => {
-    // console.log(response.data);
-  });
+  axios
+    .post("/logout")
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch(function (error) {});
 };
 function ServiceNavbar() {
   const { id } = useParams();
