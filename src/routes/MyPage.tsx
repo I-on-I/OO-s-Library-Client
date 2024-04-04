@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { UserData } from "../atoms";
-
 import { useRecoilValue } from "recoil";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 const MyPageSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -127,7 +127,20 @@ function MyPage() {
     }
   };
   const [check, setCheck] = useState(false);
-
+  const deleteBtn = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    data: Info
+  ) => {
+    event.preventDefault();
+    axios
+      .delete(`/members/${userData.memberPk}`, {
+        data: { memberPassword: data.password },
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert("회원 정보가 삭제 되었습니다!");
+      });
+  };
   return (
     <MyPageSection>
       {!check ? (
@@ -137,7 +150,7 @@ function MyPage() {
             <InputInfo
               {...register("password", {
                 required: "write here",
-                minLength: 5,
+                minLength: 4,
               })}
               placeholder="비밀번호 입력"
             />
@@ -161,6 +174,13 @@ function MyPage() {
               <div>
                 <img src={memberData.memberProfileImg} />
               </div>
+              <button
+                onClick={(e) =>
+                  deleteBtn(e, { password: userData.memberPassword })
+                }
+              >
+                계정 삭제
+              </button>
             </div>
           )}
         </>

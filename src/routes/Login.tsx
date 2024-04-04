@@ -124,12 +124,13 @@ function Login() {
         console.log("서버 fetch 성공");
 
         if (response.data.pk) {
-          const { pk, memberName, memberId } = response.data;
+          const { pk, memberName, memberId, memberPassword } = response.data;
           // Update Recoil state with user data upon successful login
           setUserData({
             memberName,
             memberPk: pk,
             memberId,
+            memberPassword: data.password,
           });
 
           alert("로그인에 성공했습니다!");

@@ -9,14 +9,10 @@ interface User {
   memberPk: string;
   memberName: string;
   memberId?: string;
+  memberPassword: string;
 }
 
 export const UserData = atom<User>({
   key: "user",
-  default: { memberName: "", memberPk: "", memberId: "" },
-});
-
-export const CheckPassword = atom<{ check: boolean }>({
-  key: "checkPassword",
-  default: { check: false },
+  default: { memberName: "", memberPk: "", memberId: "", memberPassword: "" },
 });
