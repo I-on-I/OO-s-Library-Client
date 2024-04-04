@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { ChangeEvent, useEffect, useState } from "react";
-
+import { useRecoilState } from "recoil";
 import axios from "axios";
-
+import { UserData } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-// "proxy": "http://192.168.0.4:8080", 효진씨 북 데이터
 const LoginSection = styled.div`
   display: flex;
   min-height: 100vh;
@@ -87,11 +85,12 @@ const SocialLogin = styled.img<{ url: string }>`
 `;
 
 interface IForm {
-  email: string;
+  id: string;
   password: string;
 }
 
 function Login() {
+  const [userData, setUserData] = useRecoilState(UserData);
   const navigate = useNavigate();
   const {
     register,
@@ -100,30 +99,12 @@ function Login() {
     setError,
   } = useForm<IForm>({});
 
-  // const socialLogin = async () => {
-  //   try {
-  //     await axios
-  //       .post("/oauth2/authorization/naver", {
-  //         withCredentials: true,
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data);
-  //       });
-  //   } catch (e) {
-  //     console.log(e);
-  //     alert("error 데이터를 불러올 수 없다!");
-  //   }
-  // };
   const NAVER_CLIENT_ID = "Smcbfw_WXTXz1O5VFd2N";
 
-  const REDIRECT_URL = "http://192.168.0.80:8080/login/oauth2/code/naver";
+  const REDIRECT_URL = "login/oauth2/code/naver";
 
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let STATE = "";
-  for (let i = 0; i < chars.length; i++) {
-    STATE += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
+  let STATE = "false";
+
   const socialLogin = () => {
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URL}`;
 
@@ -131,11 +112,11 @@ function Login() {
   };
   const onValid = (data: IForm) => {
     let formData = new FormData();
-    console.log(data.email);
+    console.log(data.id);
     console.log(data.password);
-
-    formData.append("username", data.email);
+    formData.append("username", data.id);
     formData.append("password", data.password);
+
     axios
       .post("/login", formData)
       .then((response) => {
@@ -143,8 +124,16 @@ function Login() {
         console.log("서버 fetch 성공");
 
         if (response.data.pk) {
+          const { pk, memberName, memberId } = response.data;
+          // Update Recoil state with user data upon successful login
+          setUserData({
+            memberName,
+            memberPk: pk,
+            memberId,
+          });
+
           alert("로그인에 성공했습니다!");
-          navigate(`/${data.email}/library`);
+          navigate(`/${data.id}/library`);
         } else {
           alert("비밀번호 또는 아이디가 틀렸습니다.");
           setError(
@@ -191,16 +180,12 @@ function Login() {
             {" "}
             <div style={{ marginTop: "60px" }}>
               <InputInfo
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^\S+@\S+\.\S+$/,
-                    message: "Only emails allowed",
-                  },
+                {...register("id", {
+                  required: "id is required",
                 })}
-                placeholder="이메일을 입력"
+                placeholder="아이디 입력"
               />{" "}
-              <span>{errors?.email?.message}</span>
+              <span>{errors?.id?.message}</span>
               <InputInfo
                 {...register("password", {
                   required: "write here",

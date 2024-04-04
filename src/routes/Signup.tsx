@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import login from "../assets/login.png";
-
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -61,6 +61,7 @@ interface IForm {
   password1: string;
   name: string;
   email: string;
+  gender: string;
   extraError?: string;
 }
 
@@ -81,10 +82,66 @@ function Signup() {
         { shouldFocus: true }
       );
     } else {
+      //form 으로 보낼 때
+      // let formData = new FormData();
+      // formData.append("memberId", data.id);
+      // formData.append("memberName", data.name);
+      // formData.append("memberEmail", data.email);
+      // formData.append("memberPassword", data.password);
+      // formData.append("memberGender", data.gender);
+      // console.log(formData);
+
+      //request body 로 보낼 때
+      axios
+        .post("/members", {
+          memberId: data.id,
+          memberName: data.name,
+          memberEmail: data.email,
+          memberPassword: data.password,
+          memberGender: data.gender,
+        })
+        .then((response) => {
+          console.log(response.data);
+          console.log("서버 성공");
+        })
+        .catch(function (e) {
+          alert("회원가입에 실패했습니다!");
+          console.log(data);
+        });
       navigate("/");
     }
   };
+  // const onValid = (data: IForm) => {
+  //   let formData = new FormData();
+  //   console.log(data.email);
+  //   console.log(data.password);
 
+  //   formData.append("username", data.email);
+  //   formData.append("password", data.password);
+  //   axios
+  //     .post("/login", formData)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       console.log("서버 fetch 성공");
+
+  //       if (response.data.pk) {
+  //         alert("로그인에 성공했습니다!");
+  //         navigate(`/${data.email}/library`);
+  //       } else {
+  //         alert("비밀번호 또는 아이디가 틀렸습니다.");
+  //         setError(
+  //           "password",
+  //           {
+  //             message: "password are not the same!",
+  //           },
+  //           { shouldFocus: true }
+  //         );
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       alert("fail!!");
+  //     });
+  // };
   console.log(errors);
   return (
     <>
@@ -95,6 +152,13 @@ function Signup() {
 
           <div style={{ marginTop: "14px" }}>
             <form onSubmit={handleSubmit(onValid)}>
+              <span>{errors?.id?.message}</span>
+              <InputInfo
+                {...register("id", {
+                  required: "Id is required",
+                })}
+                placeholder="아이디를 입력"
+              />{" "}
               <InputInfo
                 {...register("email", {
                   required: "Email is required",
@@ -105,13 +169,6 @@ function Signup() {
                 })}
                 placeholder="이메일을 입력"
               />{" "}
-              <span>{errors?.id?.message}</span>
-              <InputInfo
-                {...register("id", {
-                  required: "Id is required",
-                })}
-                placeholder="아이디를 입력"
-              />
               <span>{errors?.email?.message}</span>
               <InputInfo
                 {...register("name", {
@@ -139,7 +196,27 @@ function Signup() {
                 })}
                 placeholder="비밀번호를 다시 입력"
               />
-              <span>{errors?.password1?.message}</span>
+              <span>{errors?.password1?.message}</span>{" "}
+              <div>
+                <label htmlFor="male">
+                  <input
+                    type="radio"
+                    id="male"
+                    value="0"
+                    {...register("gender")} // Register the gender field
+                  />{" "}
+                  남성
+                </label>
+                <label htmlFor="female">
+                  <input
+                    type="radio"
+                    id="female"
+                    value="1"
+                    {...register("gender")} // Register the gender field
+                  />{" "}
+                  여성
+                </label>
+              </div>
               <SingupButton disabled={!isValid} type="submit">
                 회원가입
               </SingupButton>

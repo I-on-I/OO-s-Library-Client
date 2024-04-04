@@ -80,7 +80,7 @@ function Main() {
   }, []);
   async function getData() {
     await axios
-      .get("Books")
+      .get("/books")
       .then((response) => {
         setDatas(response.data);
       })

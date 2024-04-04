@@ -19,7 +19,7 @@ export default function AddBook() {
 
   async function getData() {
     await axios
-      .get("/Books")
+      .get("/books")
       .then((response) => {
         setDatas(response.data);
       })
