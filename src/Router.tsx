@@ -8,14 +8,15 @@ import ServiceNavbar from "./components/ServiceNavbar";
 import Book from "./components/Book";
 import TeamLibrary from "./routes/TeamLibrary";
 import MyPage from "./routes/MyPage";
-interface IRouterProps {}
-function Router({}: IRouterProps) {
+import { UserData } from "./atoms";
+function Router() {
   return (
     <Routes>
+      {}
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/:id/library" element={<ServiceNavbar />}>
+      <Route path="/library" element={<ServiceNavbar />}>
         <Route index element={<MyLibrary />} />
         <Route path="calendar" element={<BookCalendar />} />
         <Route path="mypage" element={<MyPage />} />

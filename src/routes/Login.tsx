@@ -7,6 +7,10 @@ import { UserData } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+interface IForm {
+  id: string;
+  password: string;
+}
 const LoginSection = styled.div`
   display: flex;
   min-height: 100vh;
@@ -84,11 +88,6 @@ const SocialLogin = styled.img<{ url: string }>`
   background: url(${(props) => props.url});
 `;
 
-interface IForm {
-  id: string;
-  password: string;
-}
-
 function Login() {
   const [userData, setUserData] = useRecoilState(UserData);
   const navigate = useNavigate();
@@ -98,18 +97,19 @@ function Login() {
     formState: { errors, isValid },
     setError,
   } = useForm<IForm>({});
+  // NAVER_DEV_APP_CLIENT_ID=Smcbfw_WXTXz1O5VFd2N
+  // NAVER_DEV_APP_CLIENT_SECRET=y7zyxyxeMD
+  // OAUTH2_NAVER_REDIRECT_URI=http://localhost:8080/login/oauth2/code/naver
+  // const NAVER_CLIENT_ID = "Smcbfw_WXTXz1O5VFd2N";
+  // const REDIRECT_URL = encodeURIComponent(
+  //   "http://localhost:8080/login/oauth2/code/naver"
+  // );
 
-  const NAVER_CLIENT_ID = "Smcbfw_WXTXz1O5VFd2N";
-
-  const REDIRECT_URL = encodeURIComponent(
-    "http://192.168.0.8:8080/login/oauth2/code/naver"
-  );
-
-  let STATE = encodeURIComponent("false");
+  // let STATE = "1234";
+  // STATE = encodeURIComponent(STATE);
 
   const socialLogin = () => {
-    const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URL}`;
-
+    const NAVER_AUTH_URL = `http://localhost:8080/oauth2/authorization/naver`;
     window.location.href = NAVER_AUTH_URL;
   };
   const onValid = (data: IForm) => {
@@ -126,8 +126,8 @@ function Login() {
         console.log("서버 fetch 성공");
 
         if (response.data.pk) {
-          const { pk, memberName, memberId, memberPassword } = response.data;
-          // Update Recoil state with user data upon successful login
+          const { pk, memberName, memberId } = response.data;
+
           setUserData({
             memberName,
             memberPk: pk,
@@ -136,7 +136,7 @@ function Login() {
           });
 
           alert("로그인에 성공했습니다!");
-          navigate(`/${data.id}/library`);
+          navigate(`/library`);
         } else {
           alert("비밀번호 또는 아이디가 틀렸습니다.");
           setError(
