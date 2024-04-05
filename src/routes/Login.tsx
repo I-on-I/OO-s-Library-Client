@@ -101,7 +101,9 @@ function Login() {
 
   const NAVER_CLIENT_ID = "Smcbfw_WXTXz1O5VFd2N";
 
-  const REDIRECT_URL = "http://localhost:8080/login/oauth2/code/naver";
+  const REDIRECT_URL = encodeURIComponent(
+    "http://192.168.0.8:8080/login/oauth2/code/naver"
+  );
 
   let STATE = encodeURIComponent("false");
 
