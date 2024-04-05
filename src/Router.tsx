@@ -9,22 +9,28 @@ import Book from "./components/Book";
 import TeamLibrary from "./routes/TeamLibrary";
 import MyPage from "./routes/MyPage";
 import { UserData } from "./atoms";
+import { useRecoilValue } from "recoil";
+import ErrorPage from "./components/ErrorPage";
 function Router() {
+  const userData = useRecoilValue(UserData);
   return (
     <Routes>
-      {}
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/library" element={<ServiceNavbar />}>
-        <Route index element={<MyLibrary />} />
-        <Route path="calendar" element={<BookCalendar />} />
-        <Route path="mypage" element={<MyPage />} />
-      </Route>
+
+      {userData.memberId === null ? null : (
+        <Route path="/library" element={<ServiceNavbar />}>
+          <Route index element={<MyLibrary />} />
+          <Route path="calendar" element={<BookCalendar />} />
+          <Route path="mypage" element={<MyPage />} />
+        </Route>
+      )}
+
       <Route path="/book/:id" element={<Book />} />
       <Route path="/teamlibrary" element={<TeamLibrary />} />
 
-      <Route path="*" element={<div>404</div>} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }

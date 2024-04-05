@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import Book from "../components/Book";
 import AddBook from "../components/AddBook";
 import { BookCover } from "book-cover-3d";
+import { useRecoilValue } from "recoil";
+import { UserData } from "../atoms";
 interface Review {
   page: string;
   create_date: string;
@@ -234,6 +236,7 @@ function MyLibrary() {
   const [addBook, addBookIsOpen] = useState(false);
   const [reviewIsOpen, setReviewOpen] = useState(false);
 
+  const userData = useRecoilValue(UserData); // Accessing userData from Recoil state
   const openModal = () => {
     setModalIsOpen(true);
   };

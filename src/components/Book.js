@@ -34,6 +34,9 @@ const Page = React.forwardRef((props, ref) => {
 });
 
 function Book(props) {
+  var client_id = "YOUR_CLIENT_ID";
+
+  var client_secret = "YOUR_CLIENT_SECRET";
   return (
     <body>
       <div className="bookSection">

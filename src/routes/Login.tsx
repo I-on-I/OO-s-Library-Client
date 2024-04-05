@@ -89,6 +89,7 @@ const SocialLogin = styled.img<{ url: string }>`
 `;
 
 function Login() {
+  // const userData = useRecoilValue(UserData); // Accessing userData from Recoil state
   const [userData, setUserData] = useRecoilState(UserData);
   const navigate = useNavigate();
   const {
@@ -111,6 +112,9 @@ function Login() {
   const socialLogin = () => {
     const NAVER_AUTH_URL = `http://localhost:8080/oauth2/authorization/naver`;
     window.location.href = NAVER_AUTH_URL;
+
+    let code = new URL(window.location.href).searchParams.get("code");
+    console.log(code);
   };
   const onValid = (data: IForm) => {
     let formData = new FormData();
@@ -136,6 +140,7 @@ function Login() {
           });
 
           alert("로그인에 성공했습니다!");
+
           navigate(`/library`);
         } else {
           alert("비밀번호 또는 아이디가 틀렸습니다.");
