@@ -82,6 +82,8 @@ function Main() {
     await axios
       .get("/books")
       .then((response) => {
+        console.log(response.data);
+
         setDatas(response.data);
       })
       .catch((error) => {

@@ -101,9 +101,9 @@ function Login() {
 
   const NAVER_CLIENT_ID = "Smcbfw_WXTXz1O5VFd2N";
 
-  const REDIRECT_URL = "login/oauth2/code/naver";
+  const REDIRECT_URL = "http://localhost:8080/login/oauth2/code/naver";
 
-  let STATE = "false";
+  let STATE = encodeURIComponent("false");
 
   const socialLogin = () => {
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${REDIRECT_URL}`;

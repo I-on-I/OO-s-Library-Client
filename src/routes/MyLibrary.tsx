@@ -266,7 +266,7 @@ function MyLibrary() {
             </Link>
             <ServiceBtn onClick={addBookOpenModal}>책 추가</ServiceBtn>
           </ServiceMoveSection>
-        </div>
+        </div>{" "}
         <BookContentWrapper>
           {books.map((book, bookIndex) => (
             <BookContent key={bookIndex}>
