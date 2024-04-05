@@ -34,9 +34,38 @@ const Page = React.forwardRef((props, ref) => {
 });
 
 function Book(props) {
-  var client_id = "YOUR_CLIENT_ID";
+  const bookContent = [
+    "", // 페이지 번호와 배열 인덱스를 맞추기 위해 비어있는 문자열 추가
+    "Whenever you feel like criticizing any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had.",
+    "He didn’t say any more, but we’ve always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that...",
+    "Reserving judgments is a matter of infinite hope. I am still a little afraid of missing something if I forget that, as my father snobbishly suggested...",
+  ];
 
-  var client_secret = "YOUR_CLIENT_SECRET";
+  const handleStart = () => {
+    const utterance = new SpeechSynthesisUtterance(bookContent[1]);
+    speechSynthesis.speak(utterance);
+  };
+
+  const handlePause = () => {
+    if (speechSynthesis.speaking) {
+      speechSynthesis.pause();
+    }
+  };
+
+  const handleResume = () => {
+    if (speechSynthesis.paused) {
+      speechSynthesis.resume();
+    }
+  };
+
+  const handleReadPageContent = (pageNumber) => {
+    const content = bookContent[pageNumber];
+    if (content) {
+      const utterance = new SpeechSynthesisUtterance(content);
+      speechSynthesis.speak(utterance);
+    }
+  };
+
   return (
     <body>
       <div className="bookSection">
@@ -59,36 +88,24 @@ function Book(props) {
           <Page number="1">
             <hr></hr>
             <p contentEditable="true">
-              In my younger and more vulnerable years my father gave me some
-              advice that I’ve been turning over in my mind ever since.
+              <button onClick={handleStart}>문장 읽기 시작</button>
+              <button onClick={handlePause}>멈추기</button>
+              <button onClick={handleResume}>다시 시작</button>
             </p>
           </Page>
           <Page number="2">
             <hr></hr>
-            “Whenever you feel like criticizing any one,” he told me, “just
-            remember that all the people in this world haven’t had the
-            advantages that you’ve had.”
+            <p>{bookContent[2]}</p>
+            <button onClick={() => handleReadPageContent(2)}>
+              문장 읽기 시작
+            </button>
           </Page>
           <Page number="3">
             <hr></hr>
-            He didn’t say any more, but we’ve always been unusually
-            communicative in a reserved way, and I understood that he meant a
-            great deal more than that. In consequence, I’m inclined to reserve
-            all judgments, a habit that has opened up many curious natures to me
-            and also made me the victim of not a few veteran bores. The abnormal
-            mind is quick to detect and attach itself to this quality when it
-            appears in a normal person, and so it came about that in college I
-            was unjustly accused of being a politician, because I was privy to
-            the secret griefs of wild, unknown men. Most of the confidences were
-            unsought — frequently I have feigned sleep, preoccupation, or a
-            hostile levity when I realized by some unmistakable sign that an
-            intimate revelation was quivering on the horizon; for the intimate
-            revelations of young men, or at least the terms in which they
-            express them, are usually plagiaristic and marred by obvious
-            suppressions. Reserving judgments is a matter of infinite hope. I am
-            still a little afraid of missing something if I forget that, as my
-            father snobbishly suggested, an d I snobbishly repeat, a sense of
-            the fundamental decencies is parcelled out unequally at birth.
+            <p>{bookContent[3]}</p>
+            <button onClick={() => handleReadPageContent(3)}>
+              문장 읽기 시작
+            </button>
           </Page>
           <Page number="4">
             <hr></hr>

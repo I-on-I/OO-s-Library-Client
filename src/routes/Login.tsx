@@ -229,9 +229,9 @@ function Login() {
                 textDecoration: "none",
                 color: "rgba(12, 12, 12, 0.70)",
               }}
-              to="/signup"
+              to="/                                          "
             >
-              비밀번호 찾기
+              아이디 찾기
             </Link>{" "}
             <span> | </span>
             <Link
@@ -241,7 +241,7 @@ function Login() {
               }}
               to="/signup"
             >
-              관리자 로그인
+              비밀번호 찾기
             </Link>
           </div>
           <div style={{ textAlign: "center", marginTop: " 25px" }}>
