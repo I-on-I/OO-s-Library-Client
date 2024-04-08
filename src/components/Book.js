@@ -83,7 +83,7 @@ function Book(props) {
           className="album-web"
         >
           <PageCover backgroundImg={props.bookInfo}></PageCover>
-          <PageCover>{props.author}123</PageCover>
+          <PageCover>{props.author}</PageCover>
 
           <Page number="1">
             <hr></hr>

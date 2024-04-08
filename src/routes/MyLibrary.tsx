@@ -28,7 +28,7 @@ const books: Book[] = [
     id: 0,
     title: "영어 필사 100일의 기적",
     img: "https://image.aladin.co.kr/product/28258/73/cover500/k212835380_1.jpg",
-    author: "김승현",
+    author: "author1",
     hash: ["언어", "영어", "100일의 기적"],
     percent: 65,
     reviews: [
@@ -53,7 +53,7 @@ const books: Book[] = [
     id: 1,
     title: "퓨처셀프",
     img: "https://image.aladin.co.kr/product/32354/81/cover200/k342935366_1.jpg",
-    author: "규찬리",
+    author: "author2",
     percent: 30,
     reviews: [
       {
@@ -75,7 +75,7 @@ const books: Book[] = [
     id: 3,
     title: "퓨처셀프",
     img: "https://image.aladin.co.kr/product/32354/81/cover200/k342935366_1.jpg",
-    author: "규찬리",
+    author: "author3",
     percent: 30,
     reviews: [
       {
@@ -97,7 +97,7 @@ const books: Book[] = [
     id: 4,
     title: "퓨처셀프",
     img: "https://image.aladin.co.kr/product/32354/81/cover200/k342935366_1.jpg",
-    author: "규찬리",
+    author: "author4",
     percent: 30,
     reviews: [
       {
@@ -232,13 +232,16 @@ const RemainRate = styled.div<{ percentage: number }>`
   background-color: #7a7ae3;
 `;
 function MyLibrary() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  const [bookInfo, setBookInfo] = useState<Book | null>(null);
   const [addBook, addBookIsOpen] = useState(false);
   const [reviewIsOpen, setReviewOpen] = useState(false);
 
   const userData = useRecoilValue(UserData); // Accessing userData from Recoil state
-  const openModal = () => {
+  const openModal = (book: Book | null) => {
     setModalIsOpen(true);
+    setBookInfo(book);
   };
 
   const closeModal = () => {
@@ -344,7 +347,7 @@ function MyLibrary() {
               <BookCover>
                 {" "}
                 <img
-                  onClick={openModal}
+                  onClick={() => openModal(book)}
                   src={book.img}
                   style={{
                     boxShadow: "8px 5px 10px 3px rgba(0,0,0,0.25)",
@@ -368,7 +371,7 @@ function MyLibrary() {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
               >
-                <Book bookInfo={book.img} author={book.author}></Book>
+                <Book bookInfo={bookInfo?.img} author={bookInfo?.author}></Book>
                 <button onClick={closeModal}>닫기</button>
               </Modal>
 
