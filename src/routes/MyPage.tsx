@@ -97,6 +97,7 @@ function MyPage() {
     extraError?: string;
   }
 
+  const navigate = useNavigate();
   const userData = useRecoilValue(UserData); // Accessing userData from Recoil state
 
   // const [memberEmail, setMemberEmail] = useState<string | null>(null);
@@ -173,6 +174,7 @@ function MyPage() {
       .then((res) => {
         console.log(res.data);
         alert("회원 정보가 삭제 되었습니다!");
+        navigate("/");
       });
   };
 
