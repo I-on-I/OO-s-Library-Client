@@ -54,7 +54,7 @@ const books: Book[] = [
     title: "퓨처셀프",
     img: "https://image.aladin.co.kr/product/32354/81/cover200/k342935366_1.jpg",
     author: "author2",
-    percent: 30,
+    percent: 34,
     reviews: [
       {
         page: "14",
@@ -76,7 +76,7 @@ const books: Book[] = [
     title: "퓨처셀프",
     img: "https://image.aladin.co.kr/product/32354/81/cover200/k342935366_1.jpg",
     author: "author3",
-    percent: 30,
+    percent: 20,
     reviews: [
       {
         page: "14",
@@ -98,7 +98,7 @@ const books: Book[] = [
     title: "퓨처셀프",
     img: "https://image.aladin.co.kr/product/32354/81/cover200/k342935366_1.jpg",
     author: "author4",
-    percent: 30,
+    percent: 80,
     reviews: [
       {
         page: "14",

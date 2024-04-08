@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -18,22 +18,28 @@ const StyledUserName = styled.div`
   margin-right: 25px;
 `;
 
-const NavbarLink = styled(Link)<{ styleBtn: string }>`
+const NavbarLink = styled(Link)<{ styleBtn: string; isActive: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  height: 34px;
+  color: ${(props) => (props.isActive ? "white" : "black")};
   background: none;
-  color: black;
-  border-radius: 100px;
+  background-color: ${(props) => (props.isActive ? "#7ea2c9" : "transparent")};
+
   padding: 12px 24px;
   font-size: 20px;
   margin-right: 12px;
   line-height: 18px;
   text-align: center;
-`;
+  text-decoration: none;
 
+  &:hover {
+    background-color: ${(props) =>
+      props.isActive
+        ? "#6b849f"
+        : "#f0f0f0"}; /* 활성화된 경우 hover 시 배경 색상 유지 */
+  }
+`;
 const LogoutBtn = styled(Link)`
   background-color: #333;
   width: 80px;
@@ -57,19 +63,34 @@ const logout = () => {
 };
 function ServiceNavbar() {
   const { id } = useParams();
+  const location = useLocation();
+  console.log(location);
+
   return (
     <>
       <div style={{ borderBottom: "1px solid #dddddd" }}>
         <StyledNavItem>
           <StyledUserName>{id}의 서재</StyledUserName>
           <StyledNavItem>
-            <NavbarLink to="" styleBtn="none">
+            <NavbarLink
+              to=""
+              styleBtn="none"
+              isActive={location.pathname === "/library"}
+            >
               내 책
             </NavbarLink>
-            <NavbarLink to="calendar" styleBtn="none">
+            <NavbarLink
+              to="calendar"
+              styleBtn="none"
+              isActive={location.pathname === "/library/calendar"}
+            >
               캘린더
             </NavbarLink>
-            <NavbarLink to="mypage" styleBtn="none">
+            <NavbarLink
+              to="mypage"
+              styleBtn="none"
+              isActive={location.pathname === "/library/mypage"}
+            >
               마이 페이지
             </NavbarLink>
             <LogoutBtn to="/Login" id="logout" onClick={logout}>
