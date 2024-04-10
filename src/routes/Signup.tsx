@@ -181,7 +181,7 @@ function Signup() {
               <InputInfo
                 {...register("password", {
                   required: "write here",
-                  minLength: 5,
+                  minLength: 4,
                 })}
                 placeholder="비밀번호를 입력"
               />
@@ -190,7 +190,7 @@ function Signup() {
                 {...register("password1", {
                   required: "Password is required",
                   minLength: {
-                    value: 5,
+                    value: 4,
                     message: "Your password is too short.",
                   },
                 })}

@@ -2,9 +2,9 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import Modal from "react-modal";
 import moment from "moment";
-import "../App.css";
+
 import Book from "../components/Book";
-import { BookCover } from "book-cover-3d";
+
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 interface Review {
@@ -93,9 +93,9 @@ export default function BookCalendar() {
             html.push(
               <img
                 onClick={openModal}
-                style={{ width: "150px", height: "200px", cursor: "pointer" }}
+                style={{ width: "100%", height: "200px", cursor: "pointer" }}
                 src={books[0].img}
-              ></img>
+              />
             );
           }
           return (

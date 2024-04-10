@@ -11,6 +11,8 @@ interface BookProps {
 
 const LibraryFrame = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 0 auto;
   flex-wrap: wrap;
   overflow-y: auto; /* 세로 스크롤 */
   width: 100%;
