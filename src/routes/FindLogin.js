@@ -27,7 +27,16 @@ export default function FindLogin() {
 
     try {
       // 인증번호 확인 요청
-      await axios.post("/mail/findPassword", { code: verificationCode });
+      await axios
+        .post("/mail/verify", { code: verificationCode })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            axios
+              .post("/mail/findPassword", { name, email })
+              .then((res) => console.log(res.data));
+          }
+        });
       console.log("인증번호 확인 요청을 보냈습니다.");
     } catch (error) {
       console.error("인증번호 확인하는 도중 오류가 발생했습니다:", error);
