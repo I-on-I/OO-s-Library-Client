@@ -1,7 +1,8 @@
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
+import { UserData } from "../atoms";
+import { useRecoilValue } from "recoil";
 const StyledNavItem = styled.li`
   display: flex;
 
@@ -62,15 +63,15 @@ const logout = () => {
     .catch(function (error) {});
 };
 function ServiceNavbar() {
-  const { id } = useParams();
+  const userData = useRecoilValue(UserData); // Accessing userData from Recoil state
   const location = useLocation();
-  console.log(location);
+  console.log(userData);
 
   return (
     <>
       <div style={{ borderBottom: "1px solid #dddddd" }}>
         <StyledNavItem>
-          <StyledUserName>{id}의 서재</StyledUserName>
+          <StyledUserName>{userData.memberId}의 서재</StyledUserName>
           <StyledNavItem>
             <NavbarLink
               to=""

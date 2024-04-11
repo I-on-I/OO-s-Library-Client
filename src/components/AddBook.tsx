@@ -114,7 +114,11 @@ export default function AddBook() {
               >
                 <h2>{result.bookTitle}</h2>
                 <img src={result.coverImagePath} alt={result.bookTitle} />
-                <p>{result.bookContent}</p>
+                <p>
+                  {result.bookContent.length > 40
+                    ? result.bookContent.slice(0, 40) + "..."
+                    : result.bookContent}
+                </p>
                 알라딘 링크
               </ResultLink>
             </SearchResult>

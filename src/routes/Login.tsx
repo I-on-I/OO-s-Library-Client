@@ -133,9 +133,9 @@ function Login() {
           const { pk, memberName, memberId } = response.data;
 
           setUserData({
-            memberName,
+            memberName: data.id,
             memberPk: pk,
-            memberId,
+            memberId: data.id,
             memberPassword: data.password,
           });
 
@@ -229,7 +229,7 @@ function Login() {
                 textDecoration: "none",
                 color: "rgba(12, 12, 12, 0.70)",
               }}
-              to="/                                          "
+              to="/findLogin                                         "
             >
               아이디 찾기
             </Link>{" "}

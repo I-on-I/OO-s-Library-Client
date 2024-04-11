@@ -67,9 +67,9 @@ const Context = styled.span`
 
 interface Data {
   book_title: string;
-  cover_image_path: string;
-  book_content: string;
-  aladin_link: string;
+  coverImagePath: string;
+  bookContent: string;
+  alandinLink: string;
 }
 
 function Main() {
@@ -100,15 +100,15 @@ function Main() {
         <AppTitle>00의 서재</AppTitle>
         <AppContent>앱의 내용과 구체적인 서비스 스토리</AppContent>
         <BookContent>
-          {datas.slice(30, 35).map((data, index) => (
+          {datas.slice(25, 30).map((data, index) => (
             <div key={index}>
-              <a href={data.aladin_link}>
-                <Book bgImg={data.cover_image_path}></Book>{" "}
+              <a href={data.alandinLink}>
+                <Book bgImg={data.coverImagePath}></Book>{" "}
               </a>
               <Context>
-                {data.book_content.length > 70
-                  ? data.book_content.slice(0, 70) + "..."
-                  : data.book_content}
+                {data.bookContent.length > 70
+                  ? data.bookContent.slice(0, 70) + "..."
+                  : data.bookContent}
               </Context>
             </div>
           ))}

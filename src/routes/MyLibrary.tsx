@@ -187,10 +187,6 @@ const ReviewContent = styled.div`
   margin-bottom: 15px;
 `;
 
-interface ReviewContentTextProps {
-  expanded: boolean;
-}
-
 const ReviewContentText = styled.div`
   font-size: 12px;
   font-weight: 500;
@@ -238,7 +234,6 @@ function MyLibrary() {
   const [addBook, addBookIsOpen] = useState(false);
   const [reviewIsOpen, setReviewOpen] = useState(false);
 
-  const userData = useRecoilValue(UserData); // Accessing userData from Recoil state
   const openModal = (book: Book | null) => {
     setModalIsOpen(true);
     setBookInfo(book);

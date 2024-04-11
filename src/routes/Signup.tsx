@@ -82,16 +82,6 @@ function Signup() {
         { shouldFocus: true }
       );
     } else {
-      //form 으로 보낼 때
-      // let formData = new FormData();
-      // formData.append("memberId", data.id);
-      // formData.append("memberName", data.name);
-      // formData.append("memberEmail", data.email);
-      // formData.append("memberPassword", data.password);
-      // formData.append("memberGender", data.gender);
-      // console.log(formData);
-
-      //request body 로 보낼 때
       axios
         .post("/members", {
           memberId: data.id,
@@ -111,37 +101,7 @@ function Signup() {
       navigate("/");
     }
   };
-  // const onValid = (data: IForm) => {
-  //   let formData = new FormData();
-  //   console.log(data.email);
-  //   console.log(data.password);
 
-  //   formData.append("username", data.email);
-  //   formData.append("password", data.password);
-  //   axios
-  //     .post("/login", formData)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       console.log("서버 fetch 성공");
-
-  //       if (response.data.pk) {
-  //         alert("로그인에 성공했습니다!");
-  //         navigate(`/${data.email}/library`);
-  //       } else {
-  //         alert("비밀번호 또는 아이디가 틀렸습니다.");
-  //         setError(
-  //           "password",
-  //           {
-  //             message: "password are not the same!",
-  //           },
-  //           { shouldFocus: true }
-  //         );
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       alert("fail!!");
-  //     });
-  // };
   console.log(errors);
   return (
     <>

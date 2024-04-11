@@ -10,6 +10,7 @@ import TeamLibrary from "./routes/TeamLibrary";
 import MyPage from "./routes/MyPage";
 import { UserData } from "./atoms";
 import { useRecoilValue } from "recoil";
+import FindLogin from "./routes/FindLogin";
 import ErrorPage from "./components/ErrorPage";
 function Router() {
   const userData = useRecoilValue(UserData);
@@ -18,7 +19,7 @@ function Router() {
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
+      <Route path="/findLogin" element={<FindLogin />} />
       {userData.memberId === null ? null : (
         <Route path="/library" element={<ServiceNavbar />}>
           <Route index element={<MyLibrary />} />
