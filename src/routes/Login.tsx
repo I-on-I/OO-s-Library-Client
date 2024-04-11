@@ -229,7 +229,7 @@ function Login() {
                 textDecoration: "none",
                 color: "rgba(12, 12, 12, 0.70)",
               }}
-              to="/findLogin                                         "
+              to="/findLogin"
             >
               아이디 찾기
             </Link>{" "}
