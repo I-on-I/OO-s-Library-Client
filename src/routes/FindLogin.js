@@ -51,17 +51,16 @@ export default function FindLogin() {
         />
         <button type="submit">인증번호 받기</button>
       </form>
-      {isVerificationCodeSubmitted ? (
-        <form onSubmit={handleVerificationSubmit}>
-          <input
-            type="text"
-            placeholder="인증번호"
-            value={verificationCode}
-            onChange={(e) => setVerificationCode(e.target.value)}
-          />
-          <button type="submit">제출하기</button>
-        </form>
-      ) : null}
+
+      <form onSubmit={handleVerificationSubmit}>
+        <input
+          type="text"
+          placeholder="인증번호"
+          value={verificationCode}
+          onChange={(e) => setVerificationCode(e.target.value)}
+        />
+        <button type="submit">제출하기</button>
+      </form>
     </div>
   );
 }
